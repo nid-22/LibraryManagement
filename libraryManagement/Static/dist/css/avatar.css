@@ -2,9 +2,9 @@
   position: relative;
   height: 100px;
   width: 100px;
-  margin: -35px auto;
+  margin: -35px 2px;
   z-index: 9;
-  border-radius: 100%;
+  
   overflow: hidden;
   box-shadow: 1px 1px 9px -5px black;
   transition: all 0.3s ease;
