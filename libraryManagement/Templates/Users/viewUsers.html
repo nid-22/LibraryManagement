@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'dist/css/ui.css' %}" />
+<!-- DataTables -->
+<link rel="stylesheet" href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}">
+<link
+  rel="stylesheet"
+  href="{% static 'dist/css/ui.css' %}"
+/>
+<link 
+  rel="stylesheet"   
+  href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"   
+  integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"   
+  crossorigin="anonymous"> 
+{% endblock %}
+{% block content %}
+<style>
+table.dataTable thead .sorting:after {
+  opacity: 0.2;
+  content: "\e150";
+  display: none;
+  cursor: pointer;
+}
+.dataTables_filter input[type=search] { 
+  height: 35px;
+  width: 500px;
+  margin-bottom: 2rem;
+}
+.dataTables_filter{
+  position: relative;
+  text-align: center !important;
+  margin-top: -4%;
+}
+#example2_filter{
+  position: relative;
+}
+#example2_filter .form-control{
+    background-image: url(https://www.4me.com/wp-content/uploads/2018/01/4me-icon-search.png);
+    background-repeat: no-repeat;
+    background-color: #fff;
+    background-size: 20px 20px;
+    fill: #00AEEF;
+    background-position: 99% 12px !important;
+}
+</style>
+<section class="content">
+    <div class="row">
+      <div class="col-xs-12">          
+
+        <div class="box">
+          <div class="contains">
+          <div class="box-header">
+            <h3 class="box-title titleb">Users list</h3>
+           
+          </div>
+          {% if messages %}
+              <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                  {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      <p>{{ message }}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          <!-- /.box-header -->
+          <div class="box-body main-box">
+            <table id="example2" class="table table-responsive table-b tablebg displaytable">
+              <thead>
+              <tr>
+                <!-- <th>Photo</th> -->
+                <th>Name</th>
+                <th>Address</th>
+                <th>Gender</th>
+                <th>email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+                {% for u in users %}
+              <tr>
+                <!-- <td>{% if u.Photo %} 
+                  <img src="http://127.0.0.1:8000{{u.Photo}}" width="80px" height="80px" alt=""> 
+                    {% else %}
+                  <p>No picture uploaded</p>
+                    {% endif %}
+                </td>   -->
+                
+               
+                <td>{{u.Name}} </td>
+                <td>{{u.Address}}</td>
+                <td>{{u.Gender}}</td>
+                <td>{{u.email}}</td>
+                <td>{{u.Phone}}</td>
+                <td> <a href="{% url 'updateUsers' u.id %}"> <i class="fa fa-edit"></i></a>
+                    <a href="{% url 'deleteUsers' u.id %}"> <i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+              {% endfor %}
+              </tfoot>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  {% load static %}
+    <script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
+   
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script>
+      $( document ).ready(function() {
+        var table = $("#example1").DataTable();
+          $('#example2').DataTable({
+            pagingType: "full_numbers",
+            language: {
+            searchPlaceholder: "Type here to search...",search:"",
+            info:"_START_ - _END_ of _TOTAL_ ",
+            "lengthMenu": 'Show <select>'+
+                       '<option value="10">10 Rows</option>'+
+                       '<option value="25">25 Rows</option>'+
+                       '<option value="50">50 Rows</option>'+
+                       '<option value="100">100 Rows</option>'+
+                       '<option value="-1">All Rows</option>'+
+                       '</select>',
+            oPaginate: {
+                      sNext: '<i class="fa fa-angle-right" aria-hidden="true"></i>',
+                      sPrevious: '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                      sFirst: '<i class="fa fa-step-backward fa-1x"></i>',
+                      sLast: '<i class="fa fa-step-forward fa-1x"></i>',
+                      }
+                      },
+            "paging": true,
+            "lengthChange": true, 
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            'columnDefs': [{
+              'targets': [1,2,3,4], // column index (start from 0)
+              'orderable': false, // set orderable false for selected columns
+            }] ,
+          
+          orderCellsTop: true,
+          "sDom": 'Rfrtlip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+      initComplete: function () {
+              var api = this.api();
+                $('.filterhead', api.table().header()).each( function (i) {
+                  var column = api.column(4);
+                    var select = $('<select id="sel"><option id="boldoption" value="">Department</option></select>')
+                        .appendTo( $(this).empty() )
+                        .on( 'change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                        } );
+
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' );
+                    } );
+                } );
+            }
+          });
+                
+          
+         
+
+      });
+      //trail
+      
+   </script>
+  
+{% endblock %}
+

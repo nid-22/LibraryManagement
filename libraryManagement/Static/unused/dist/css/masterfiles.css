@@ -1,0 +1,34 @@
+.box-body{
+    padding: 25px;    
+  }
+  .input-group{
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+  .form-group {
+    margin-bottom: 27px;
+    }
+    .col-xs-11{
+    color:  #3c8dbc;
+    }
+
+    #lstBox1, #lstBox2{
+      margin-top: 10px;
+      height:200px;
+      width:200px;
+    }
+    
+    .approveTermsContainer{
+      display:flex;
+      justify-content:center;
+    }
+    
+    .transferBtns {
+      margin-right: 30px;
+      margin-left: 30px;
+    }
+    
+    .transferBtns{
+      float:left; 
+      align-self:center;
+    }

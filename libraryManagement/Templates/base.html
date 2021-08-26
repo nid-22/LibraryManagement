@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Library Management</title>
+    <!-- ort logo -->
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'dist/img/logo.png' %}" type="image/x-icon">
+    <!-- <link rel = "x-icon" href ="{% static 'images/ort_logo.png' %}" type = "image/x-icon"> -->
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="viewport"
+    />
+    <!-- Bootstrap 3.3.7 -->
+    {% load static %}
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'dist/css/style.css' %}" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="{% static 'dist/css/skins/skin-black-light.min.css' %}" />
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{% static 'plugins/iCheck/flat/blue.css' %}" />    
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{% static 'plugins/datepicker/datepicker3.css' %}"  /> 
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'dist/css/ui.css' %}" />
+    {% block head %} {% endblock %}
+   
+<style>
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: bold;
+  src: local('Product Sans'), url('/static/dist/fonts/Product-Sans-Bold.ttf') format('truetype');
+}
+svg{
+  fill: rgb(141, 135, 135);
+  height: 20px;
+  width: 20px;
+  margin-bottom: -5px;
+}
+.logo-mini{
+  background: #000;
+  color: #fff;
+
+}
+.ort{
+  font-size: 34px !important;
+    margin-left: -5px;
+    position: relative;
+    top: -3px;
+    margin-bottom: 0;
+    letter-spacing: 3px;
+}
+.navbar.shadow {
+  transition: 0.5s ease all;
+    -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+}
+.content {
+  padding: 26px !important;
+}
+</style>
+</head>
+<!-- fixed -->
+  <body class="hold-transition skin-black-light sidebar-mini fixed">
+    <div class="wrapper">
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini logos"><p class="ort">ort</p></span>
+            
+
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg" id="logos"><b><span class="ort">ort</span><span class="war" style="color: #00AEEF;">_WAR</span></b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top bgcolor">
+          <!-- Sidebar toggle button-->
+          <!-- <a
+            href="#"
+            class="sidebar-toggle"
+            data-toggle="offcanvas"
+            role="button"
+            id="sidebar-toglebtn"
+          >
+            <span class="sr-only">Toggle navigation</span>
+          </a> -->
+          <div class="text-center" id="today">
+            <i class="fa fa-calendar" style="color: #999;"><span>&nbsp;&nbsp;  Today</span></i>
+            <input disabled id="datess" type="text">
+          </div>
+
+          <div class="navbar-custom-menu nav-right-head">
+            <ul class="nav navbar-nav">
+              <!-- Messages: style can be found in dropdown.less-->
+              <li class="active dropdown messages-menu profile">
+                <a href="#" class="dropdown-toggle profile" data-toggle="dropdown">
+                  <i class="fa fa-user" id="togglebtn"></i>
+                  <span style="font-size: 14px; padding-left: 10px;" >{{Fullname}}</span>
+                  <span style="padding-left: 10px;"><i class="fa fa-angle-down"></i></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu profile test-left" >  
+                   
+                      <li style="background-color: #fff;">
+                        <a href="{% url 'logout' %}">
+                          <p class="active">
+                            <i class="fa fa-sign-out text-danger"></i>&nbsp; logout
+                          </p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar sidepad " >
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+         
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="treeview">
+              
+              <a href="#">
+                <img id="icon" class="svg icon" src ="{% static 'dist/icons/employeemaster.svg' %}">  <span id="menuname" style="width:227px;padding-left: 1rem;"> Users </span> 
+              </a>
+                <ul class="treeview-menu menubg menucolor" style="width:228px;">
+                  
+                  <li><a class="menucolor" href="{% url 'register' %}" >Add Users</a></li>
+                  <li><a class="menucolor" href="{% url 'viewUsers' %}" >View/Edit Users</a></li>
+                  
+                </ul>
+            </li>
+            <li class="treeview">
+              
+              <a href="#">
+                <img id="icon" class="svg icon" src ="{% static 'dist/icons/taskmaster.svg' %}">  <span id="menuname" style="width:227px;padding-left: 1rem;"> Books </span> 
+              </a>
+                <ul class="treeview-menu menubg menucolor" style="width:228px;">
+                  <li><a class="menucolor" href="{% url 'addBooks' %}" >Add Books</a></li>
+                  <li><a class="menucolor" href="{% url 'addExcel' %}" >Upload Excel</a></li>
+                  <li><a class="menucolor" href="{% url 'viewBooks' %}" >View/Edit Books</a></li>
+                </ul>
+            </li>
+            
+          </ul>
+      </section>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper" style="background-color: #F5F5FF !important;">
+        <!-- Content Header (Page header) -->
+        
+
+        {% block content%} {% endblock %}
+      </div>
+      <footer class="main-footer" id="footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 2.00
+        </div>
+        <strong>Copyright &copy; 2021 <a href="https://onerooftech.com/">onerooftechnology</a></strong> All rights
+        reserved.
+      </footer>
+      <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+    </div>
+    <!-- ./wrapper -->
+    {% load static %}
+    <!-- jQuery 2.2.3 -->
+    <script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
+    <!-- jQuery Slim Scroll-->
+    <script src="{% static 'plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Jquerry Mask -->
+    <script src="{% static 'plugins/jQuery-Mask-Plugin-master/jquery.mask.min.js' %}"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/app.min.js' %}"></script>
+    <!-- DataTables -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+    <!-- datepicker -->
+    <script src="{% static 'plugins/datepicker/bootstrap-datepicker.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+    <!-- page script -->
+    <!-- header scroll -->
+    <script>
+      var header = $('.navbar');
+      $(window).scroll(function(e){
+          if(header.offset().top !== 0){
+              if(!header.hasClass('shadow')){
+                  header.addClass('shadow');
+              }
+          }else{
+              header.removeClass('shadow');
+          }
+      });
+    </script>
+  <!-- svg icons------------------------------------------------------------------------------------ -->
+    <script>
+      
+    jQuery('img.svg').each(function(){
+        var $img = jQuery(this);
+        var imgID = $img.attr('id');
+        var imgClass = $img.attr('class');
+        var imgURL = $img.attr('src');
+
+        jQuery.get(imgURL, function(data) {
+            // Get the SVG tag, ignore the rest
+            var $svg = jQuery(data).find('svg');
+
+            // Add replaced image's ID to the new SVG
+            if(typeof imgID !== 'undefined') {
+                $svg = $svg.attr('id', imgID);
+            }
+            // Add replaced image's classes to the new SVG
+            if(typeof imgClass !== 'undefined') {
+                $svg = $svg.attr('class', imgClass+' replaced-svg');
+            }
+
+            // Remove any invalid XML tags as per http://validator.w3.org
+            $svg = $svg.removeAttr('xmlns:a');
+
+            // Replace image with new SVG
+            $img.replaceWith($svg);
+
+        }, 'xml');
+
+    });
+    </script>
+  <!-- toggle active clas for treeview menu---------------------------------------------------------- -->
+    <script>
+      /** add active class and stay opened when selected */
+    var url = window.location;
+
+    // for sidebar menu entirely but not cover treeview
+    $('ul.sidebar-menu a').filter(function() {
+      return this.href == url;
+    }).parent().addClass('active');
+
+    // for treeview
+    $('ul.treeview-menu a').filter(function() {
+      return this.href == url;
+    }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+    </script>
+
+  <!-- Toggle state of sidebar----------------------------------------------------------------------------- -->
+
+    <script>
+    $.AdminLTESidebarTweak = {};
+
+    $.AdminLTESidebarTweak.options = {
+        EnableRemember: true,
+        NoTransitionAfterReload: true
+        //Removes the transition after page reload.
+    };
+
+    $(function () {
+        "use strict";
+
+        $("body").on("collapsed.pushMenu", function(){
+            if($.AdminLTESidebarTweak.options.EnableRemember){
+                document.cookie = "toggleState=closed";
+            } 
+        });
+        $("body").on("expanded.pushMenu", function(){
+            if($.AdminLTESidebarTweak.options.EnableRemember){
+                document.cookie = "toggleState=opened";
+            } 
+        });
+
+        if($.AdminLTESidebarTweak.options.EnableRemember){
+            var re = new RegExp('toggleState' + "=([^;]+)");
+            var value = re.exec(document.cookie);
+            var toggleState = (value != null) ? unescape(value[1]) : null;
+            if(toggleState == 'closed'){
+                if($.AdminLTESidebarTweak.options.NoTransitionAfterReload){
+                    $("body").addClass('sidebar-collapse hold-transition').delay(100).queue(function(){
+                        $(this).removeClass('hold-transition'); 
+                    });
+                }else{
+                    $("body").addClass('sidebar-collapse');
+                }
+            }
+        } 
+    });
+
+    </script>
+
+    <script type="text/javascript">
+      (function ($) {
+          /* Store sidebar state */
+          $('.sidebar-toggle').click(function(event) {
+              event.preventDefault();
+              if (Boolean(localStorage.getItem('sidebar-toggle-collapsed'))) {
+                  localStorage.setItem('sidebar-toggle-collapsed', '');
+              } else {
+                  localStorage.setItem('sidebar-toggle-collapsed', '1');
+              }
+          });
+      })(jQuery);
+    </script>
+    <script type="text/javascript">
+      /* Recover sidebar state */
+      (function () {
+          if (Boolean(localStorage.getItem('sidebar-toggle-collapsed'))) {
+              var body = document.getElementsByTagName('body')[0];
+              body.className = body.className + ' sidebar-collapse';
+          }
+      })();
+    </script>
+    <script>
+      $( document ).ready(function() {
+        var d = new Date();
+        var month = d.toLocaleString('default', { month: 'long' });
+        var day = d.getDate();
+        var newd = month + ' ' + day
+        var getdate = $('#datess').val(newd)
+        $('#datess').val(newd)
+        console.log( getdate);
+    
+        var delay=10000, setTimeoutConst;
+        $('.sidebar-mini').on('hover', function() {
+          setTimeoutConst = setTimeout(function() {
+            // do something
+          }, delay);
+        }, function() {
+          clearTimeout(setTimeoutConst);
+        });
+      });
+    </script>
+    {% block script %} {% endblock %}
+  </body>
+</html>

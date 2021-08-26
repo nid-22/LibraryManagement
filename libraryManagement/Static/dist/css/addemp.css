@@ -1,0 +1,118 @@
+.box-body{
+  padding: 0 0 2rem 0;
+  background-color: #fff;
+}
+.input-group{
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+}
+.form-group {
+  margin-bottom: 27px;
+}
+.col-xs-11{
+  color:  #3c8dbc;
+}
+.error{
+  color: rgb(221, 44, 44);
+}
+.field-icon {
+  float: right;
+  color: #00AEEF;
+  margin-right: 11px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+.necessary{
+  color: rgb(241, 178, 178);
+}
+#addtitle{
+  color: #fff;
+  letter-spacing: 2px;
+  margin-bottom: 54px;
+}
+.headfont{
+  font-size: 44px !important;
+}
+.details{
+  font-size: 18px;
+  color: #000;
+  font-weight: 500;
+}
+.margintop{
+  margin-top: 1rem;
+}
+.genderradio{
+  color: #000;
+}
+.input-group[class*=col-] {
+  float: left !important;
+}
+.setpw{
+  margin-bottom: 20px !important;
+}
+.p-0{
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+.btnpd{
+  width: 120px;
+}
+.datepick{
+  padding-left: 3rem;
+  background: #fff !important; 
+}
+.dateicon{
+  float: left;
+  color: #00AEEF;
+  margin-left: 1rem;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+.option{
+  background: #fff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px !important;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 1px solid lightgrey;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+input[type="radio"]{
+  display: none;
+}
+#id_Gender_0:checked:checked ~ .optionsRadios1,
+#id_Gender_1:checked:checked ~ .optionsRadios2{
+  border-color: #3c8dbc;
+  color: #3c8dbc;
+}
+.wrapper .option span{
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  font-weight: lighter;
+  color: #8e8e8e !important;
+}
+#id_Gender_0:checked:checked ~ .optionsRadios1 span,
+#id_Gender_1:checked:checked ~ .optionsRadios2 span{
+  color: #3c8dbc !important;
+}
+.hr{
+  border-right: 1px solid #00AEEF;
+}
+.footpadding{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.img{
+  height: auto;
+  width: 17%;
+}
+.ortwar{
+  font-size: 76px;
+  position: relative;
+  top: 22px;
+}

@@ -1,0 +1,25 @@
+.tasktitle{
+    font-weight: 600;
+    color: rgb(75, 73, 73);
+}
+.zerogut{
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+.right{
+    float: right;
+    width: 50%;
+}
+.left{
+    float: left;
+    width: 50%;
+}
+.buttonpadd{
+    margin-top: 1rem;
+}
+.upload{
+    background: #3c8dbc;
+    color: #fff;
+    border-color: #3c8dbc;
+    border-radius: 3px;
+}

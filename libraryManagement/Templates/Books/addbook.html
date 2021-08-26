@@ -1,0 +1,392 @@
+{% extends 'base.html' %}
+{% block head %}
+{% load static %}
+<!-- bootstrap datepicker -->
+<link rel="stylesheet" href="{% static 'dist/css/avatar.css' %}">
+<link rel="stylesheet" href="{% static 'dist/css/addemp.css' %}"> 
+
+{% endblock %}
+{% block content %}
+<section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Add Book</h3>
+          </div>
+          <!-- /.box-header -->
+          {% load widget_tweaks %}
+          
+              {% csrf_token %}
+              {% if messages %}
+              <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                  {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      <p>{{ message }}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+            <div class="col-md-2"></div>
+            <div class="box-body col-md-8">
+              <!-- <div class="col-md-12">
+                  
+              </div>  -->
+              <div class="col-md-12" id="addtitle">
+                <!-- <h2 class="headfont">ort<span style="color: #00AEEF;">_ -->
+                  {% load static %}
+                  
+                  <b class="">Library Management</b>
+              
+                  <form role="form" enctype="multipart/form-data"  id="my_form" class="form-horizontal" method="POST"> 
+                <div class="avatar-wrapper">
+                  {% load static%}
+                  <img class="profile-pic" src="{% static 'images/profile2.jpg' %}" />
+                  <div class="upload-button">
+                      <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                  </div>
+                    <div class="form-group">
+                      <label for="photo"  class="col-md-12">Photo</label>
+                      <div class="col-md-12 input-group text-center"  >
+                         {% render_field book.CoverPage type="file" class="file-upload" id='file-upload' name='CoverPage'  %}
+                      </div>                    
+                  </div>
+                </div> 
+              
+              
+              </div>
+              
+              
+              
+              {% csrf_token %}
+                <div class="col-md-6">
+                  <span class="details">Add Book</span>
+                  <div class="row margintop">
+                    <div class="col-md-12">
+                      {% render_field book.Title class="form-control" placeholder="Title" name='Title' id='Title' onkeypress="return fnameValidate(event);"  %}
+                      <span class="text-sm col-xs-12 error p-0" id="fnamerequired"></span>
+                    </div>
+                  </div>                
+                 
+                  <div class="row margintop">
+                    <div class="col-md-12">
+                      {% render_field book.Description class="form-control col-md-12" id="Description" name="Description"  placeholder="Description" %}
+                      <span class="text-sm col-xs-12 error p-0" id="emailrequired"></span>
+                    </div>                   
+                  </div>             
+                  <div class="row margintop">
+                    <div class="col-md-12">
+                      {% render_field book.Author class="form-control" id="Author" name='Author' placeholder="Author" %}
+                      <span class="text-sm col-xs-12 error p-0" id="locationrequired"></span>
+                    </div>                   
+                  </div>  
+                  
+                  <div class="row margintop">
+                    <div class="col-md-12">
+                      {% render_field book.Rating class="form-control col-md-12" id="Rating" name="Rating"  placeholder="Rating" %}
+                      <span class="text-sm col-xs-12 error p-0" id="emailrequired"></span>
+                    </div>                   
+                  </div> 
+                  <div class="row margintop text-center">
+                    <button id="submit" type="submit" class="btn btn-p submit ">Add Book</button></center>
+                  </div>
+                </form>
+                          
+                </div>
+                <form action="" id="my_form2" class="form-horizontal" method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                        <span class="details">Add Author</span>
+                      <div class="row margintop">
+                        <div class="col-md-12">
+                          {% render_field author.Name class="form-control" placeholder="Name" name='Name' id='Name' onkeypress="return fnameValidate(event);"  %}
+                          <span class="text-sm col-xs-12 error p-0" id="fnamerequired"></span>
+                        </div>
+                      </div>  
+                      <div class="row margintop text-center">
+                        <button id="submit" type="submit" style="margin-top: 168px;" class="btn btn-p submit ">Add Author</button></center>
+                      </div>              
+                    </div>
+                  </form>
+                </div>
+                
+                
+             
+             
+            </div>
+          </div>
+        </div>
+</section>
+{% load static%}
+  <!-- jQuery 2.2.3 -->
+  <script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
+  <script> 
+      $(".toggle-password").click(function() {
+
+      $(this).toggleClass("fa-eye fa-eye-slash");
+      var input = $($(this).attr("toggle"));
+      if (input.attr("type") == "password") {
+          input.attr("type", "text");
+      } else {
+          input.attr("type", "password");
+      }
+      });
+
+        //upload photo
+        $(document).ready(function(){
+
+          var readURL = function(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              reader.onload = function (e) {
+                  $('.profile-pic').attr('src', e.target.result);
+              }
+
+              reader.readAsDataURL(input.files[0]);
+                  }
+              }
+
+              $(".file-upload").on('change', function(){
+
+                  readURL(this);
+              });
+              
+              $(".upload-button").on('click', function() {
+                  console.log('upload button clicked');
+              $(".file-upload").click();
+              });
+
+        //  Date picker        
+          $('#datepicker').datepicker({
+            autoclose: true,
+            dateFormat: 'dd-mm-yyyy',
+            endDate: "today",
+          });
+          $('#datepicker2').datepicker({
+            autoclose: true,
+            dateFormat: 'dd-mm-yyyy',
+            endDate: "today",
+          });
+          $('#datepicker3').datepicker({
+            autoclose: true,
+            dateFormat: 'dd-mm-yyyy',
+            endDate: "today",
+          });
+        });
+      </script>
+      {% load static %}
+      <!-- jQuery 2.2.3 -->
+      <script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
+      <script>
+        // validations
+        
+        function myFunction() {
+        var x = document.getElementById("Password");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+      
+        function fnameValidate(e) {
+              var keyCode = e.keyCode || e.which;
+          
+              var lblError = document.getElementById("fnamerequired");
+              lblError.innerHTML = "";
+          
+              var regex = /^[A-Za-z\s]+$/;
+          
+              var isValid = regex.test(String.fromCharCode(keyCode));
+              if (!isValid) {
+                  lblError.innerHTML = "Only Alphabets allowed*";
+              }
+          
+              return isValid;
+          }
+          function checkalpha1(){
+            var last_name=document.getElementById('lastname').value ;
+            var re = /^[a-zA-Z]+$/;
+            if(last_name.match(re)){
+                return true;
+            }else{
+                var last_name = last_name.substring(0, last_name.length-1);
+                document.getElementById('lastname').value = last_name;
+            }
+          }
+        
+
+      function checknum(){
+            var num=document.getElementById('MobileNumber').value ;
+            var re = /[0-9]+$/
+            if(num.match(re)){
+                return true;
+            }else{
+                var num = num.substring(0, num.length-1);
+                document.getElementById('MobileNumber').value = num;
+            }
+          }
+
+      function IsEmail($email) {
+      let emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      return emailReg.test( $email );
+      }
+
+      function IsPhone(phone){
+      let phonereg = /^[0-9]{10}$/;
+      return phonereg.test(phone)
+      }
+
+        function IsValid(value) {
+            if (value == "" || value == null || value == undefined) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        
+
+     
+
+          // $('#submit').click(function()
+          $('#my_form').submit(function(){
+            $('.error').html('');
+
+      var filter = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; //To check Email ID
+      //var title = $("#TxtTitle").val().trim();
+      var fullname = $("#fullname").val().trim();
+      var lastname = $("#lastname").val().trim();
+      var mobileno = $("#MobileNumber").val().trim();
+      var emailid = $("#Email").val().trim();
+      var gender = $('input[name="gender"]:checked').val();
+      var dateofbirth = $("#datepicker").val().trim();
+      var role = $("#role").val();
+      var password = $("#Password").val();
+      var address = $("#location").val();
+      //birthdate
+      // var dateofbirthobject = new Date($('#datepicker').val());
+      var k = $('#datepicker').val().split('/')
+      dobyear = parseInt(k[2])
+      // var dobyear = dateofbirthobject.getFullYear();
+      // console.log('dobyear'+dobyear)
+      var currdate = new Date();
+      curYear = currdate.getFullYear();
+      console.log(curYear-dobyear);
+
+        
+
+
+      if (IsValid(fullname)){
+        $('#fnamerequired').html('');
+        $('#fnamerequired').html('Please Enter Your First Name.');
+        $('#fullname').focus();
+        return false;
+      }
+
+      else if (IsValid(lastname)){
+        $('#lnamerequired').html('');
+        $('#lnamerequired').html('Please Enter Your Last Name.');
+        $('#lastname ').focus();
+        return false;
+      }
+
+      else if (IsValid(gender)) {
+        $('#genderrequired').html('');
+        $('#genderrequired').html('Please Select Your Gender.');
+       
+    		return false;
+    	}
+
+      else if (IsValid(mobileno)) {
+      	$('#phonerequired').html('');
+        $('#phonerequired').html('Please Enter Your Mobile.');
+        $('#MobileNumber ').focus();
+      	return false;
+      }
+      else if (mobileno.length != 10 ) {
+        console.log('invalid number')
+        $('#phonerequired').html('');
+        $('#phonerequired').html('Please Enter Valid Mobile.');
+        $('#MobileNumber ').focus();
+        return false;
+      }
+    	else if (IsValid(emailid)) {
+    		$('#emailrequired').html('');
+        $('#emailrequired').html('Please Enter Your Email.');
+        $('#Email').focus();
+    		return false;
+    	}
+    	else if (!filter.test(emailid)) {
+        console.log('invalid email')
+    		$('#emailrequired').html('');
+        $('#emailrequired').html('Please Enter Valid Email.');
+        $('#Email').focus();
+    		return false;
+    	}
+
+      else if (IsValid(location)) {
+    		$('#locationrequired').html('');
+        $('#locationrequired').html('Please Enter Your location.');
+        $('#location').focus();
+    		return false;
+    	}
+      else if (IsValid(password)) {
+    		$('#passwordrequired').html('');
+        $('#passwordrequired').html('Please Enter Password.');
+        $('#Password').focus();
+    		return false;
+    	}
+      
+      else if (IsValid(dateofbirth)) {
+        console.log(dateofbirth)
+      	$('#birthdaterequired').html('');
+        $('#birthdaterequired').html('Please Select Your Birthdate.');
+        $('#datepicker ').focus();
+      	return false;
+      }
+      else if (curYear-dobyear <18) {
+        $('#birthdaterequired').html('');
+        $('#birthdaterequired').html('Age should be 18 or above');
+        $('#datepicker ').focus();
+        // you are above 18   
+        return false;            
+      }
+      else if (IsValid(dateofjoining)) {
+      	$('#joiningrequired').html('');
+        $('#joiningrequired').html('Please Select Your Joining Date.');
+        $('#datepicker2 ').focus();
+      	return false;
+      }
+      // if (jjdate<=bdate){
+              //     console.log('date of joining cannot be before  birthdate');
+              //     $('#jdateerror').html('date of joining cannot be before birthdate');
+              // }else{
+              //         $('#jdateerror').html("");
+              //     }
+  
+    
+    	else if (IsValid(role)) {
+    		$('#rolerequired').html('');
+        $('#rolerequired').html('Please Select Role.');
+        $('#role ').focus();
+    		return false;
+    	}
+    });
+
+ 
+
+
+  </script>
+
+{% endblock %}
+
