@@ -15,5 +15,31 @@ Project is created with:
 * upload photo of book cover to server
 
 ##Images of the project
+*Login
+
+![login](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/login.JPG)
+
+*Register User
+
+![RegisterUsers](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/register.JPG)
+
+*Home Page
+
+![home](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/homepage.JPG)
+
+*View/Edit User
+
 ![ViewUsers](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/View%20users.JPG)
+
+*Add Book/Author
+
+![AddBooks](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/add%20book%20and%20author.JPG)
+
+*View/Edit Books
+
+![ViewBooks](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/view-edit%20books.JPG)
+
+*add excel sheet
+
+![addExcel](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/upload%20excel.JPG)
 
