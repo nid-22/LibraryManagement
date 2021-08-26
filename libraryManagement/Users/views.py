@@ -69,7 +69,7 @@ def viewUsers(request):
 def deleteUsers(request,id):
     try:
         u=Users.objects.get(id=id)
-        u.delete()
+        u.delete()  #or user.is_active = False  or user.is_deleted = 0 if data is not to be deleted
     except ObjectDoesNotExist:
         print('')
     return redirect('viewUsers')
