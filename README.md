@@ -15,32 +15,32 @@ Project is created with:
 * Upload excel sheet which has books data. Data will be read and stored to database
 * upload photo of book cover to server
 
-##Images of the project
+## Images of the project
 *Login
 
 ![login](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/login.JPG)
 
-*Register User
+* Register User
 
 ![RegisterUsers](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/register.JPG)
 
-*Home Page
+* Home Page
 
 ![home](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/homepage.JPG)
 
-*View/Edit User
+* View/Edit User
 
 ![ViewUsers](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/View%20users.JPG)
 
-*Add Book/Author
+* Add Book/Author
 
 ![AddBooks](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/add%20book%20and%20author.JPG)
 
-*View/Edit Books
+* View/Edit Books
 
 ![ViewBooks](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/view-edit%20books.JPG)
 
-*add excel sheet
+* add excel sheet
 
 ![addExcel](https://raw.githubusercontent.com/nid-22/LibraryManagement/master/website%20images/upload%20excel.JPG)
 
