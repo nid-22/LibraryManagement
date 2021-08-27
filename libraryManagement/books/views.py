@@ -11,14 +11,12 @@ from django.contrib.auth.decorators import login_required
 def addExcel(request):
     if request.method =="POST":      
         excel_file = request.FILES["excel_file"]
-
-        # you may put validations here to check extension or file size
-
         wb = openpyxl.load_workbook(excel_file)
         sheets = wb.sheetnames
         print(sheets)
         # getting a particular sheet by name out of many sheets
-        worksheet = wb["books"]
+        
+        worksheet = wb[sheets[0]]
         print(worksheet)
 
         excel_data = list()
@@ -31,7 +29,7 @@ def addExcel(request):
             excel_data.append(row_data)
         if excel_data[0]!=['Title', 'Description', 'AuthorID', 'Rating']:
             messages.error(request,'Please upload excel with column heads- Title,Description,AuthorID,Rating')       
-            return render(request, 'Books/addExcel.html',)
+            return redirect('addExcel')
         for list_ in excel_data[1:]:
             try:
                 b = Books(Title = list_[0],Description =list_[1],Rating = list_[3])
@@ -41,7 +39,7 @@ def addExcel(request):
             except Exception as e:
                 print(e)
         messages.success(request,'Excel data uploaded to books database')       
-        return render(request, 'Books/addExcel.html',)
+        return redirect('addExcel')
     return render(request, 'Books/addExcel.html')
 
 @login_required
@@ -52,12 +50,15 @@ def addBooks(request):
         if bookform.is_valid(): 
             book = bookform.save()
             book.save()
+            messages.success(request,'Book added successfully')
             return redirect('addBooks')
         else:
             print(bookform.errors)
+
         if authorform.is_valid():
             author = authorform.save()
             author.save()
+            messages.success(request,'Author added successfully')
             return redirect('addBooks')
         else:
             print(authorform.errors)
@@ -75,6 +76,7 @@ def deleteBook(request,id):
     try:
         b=Books.objects.get(id=id)
         b.delete() #or b.is_active = False  or b.is_deleted = 0 if data is not to be deleted
+        messages.success(request,'Book deleted successfully')
     except ObjectDoesNotExist:
         print('')
     return redirect('viewBooks')
@@ -88,8 +90,10 @@ def updateBook(request,id):
         form = addBookForm(request.POST,request.FILES, instance=e)
         if form.is_valid():
             form.save()
+            messages.success(request,'Book updated successfully')
             return redirect('viewBooks')
         else:
             print(form.errors)
+            messages.error(request,form.errors)
     book = addBookForm(instance=e)
-    return render(request, 'Books/addbook.html',{'book':book,'author':author})
+    return render(request, 'Books/updateBook.html',{'book':book,'author':author})

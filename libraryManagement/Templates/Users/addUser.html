@@ -18,7 +18,7 @@
           </div>
           <!-- /.box-header -->
           {% load widget_tweaks %}
-          <form role="form" enctype="multipart/form-data"  id="my_form" class="form-horizontal" method="POST">
+          <form role="form" novalidate enctype="multipart/form-data"  id="my_form" class="form-horizontal" method="POST">
               {% csrf_token %}
               {% if messages %}
               <div class="row">
@@ -140,7 +140,7 @@
         //  Date picker        
           $('#datepicker').datepicker({
             autoclose: true,
-            dateFormat: 'dd-mm-yyyy',
+            Format: 'mm-dd-yyyy',
             endDate: "today",
           });
         
@@ -219,12 +219,12 @@
         }
 
         
-
      
 
           // $('#submit').click(function()
           $('#my_form').submit(function(){
             $('.error').html('');
+            console.log('submit function')
 
       var filter = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; //To check Email ID
       //var title = $("#TxtTitle").val().trim();

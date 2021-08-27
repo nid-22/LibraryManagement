@@ -2,7 +2,8 @@ from django import forms
 from Users.models import Users
 
 class registerForm(forms.ModelForm):
-    Gender = forms.ChoiceField(widget=forms.RadioSelect(), choices=Users.GENDER_CHOICES)
+    Gender = forms.ChoiceField(widget=forms.RadioSelect(), choices=Users.GENDER_CHOICES,required=False)
+    
     class Meta:
         model=Users
         fields = '__all__'

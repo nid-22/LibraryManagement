@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{% static 'plugins/iCheck/square/blue.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/addemp.css' %}"> 
 
 <style>
 .field-icon {
@@ -58,7 +59,7 @@
   <div class="login-box-body">
     <p class="login-box-msg text-black"><b>Login </b> </p>
 
-    <form action="" method="POST">
+    <form action="" method="POST" id='my_form'>
         {% csrf_token %}
         {% if messages %}
           {% for message in messages %}
@@ -66,11 +67,13 @@
           {% endfor %}
         {% endif %}
       <div class="form-group has-feedback">
-        <input type="text" name="Username" placeholder="Email" class="form-control" >
+        <input type="text" name="Username" placeholder="Email" class="form-control" id="email" >
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class="text-sm col-xs-12 error p-0" id="emailrequired"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" name="password"  id="txtPassword" placeholder="Password" class="form-control" />
+        <span class="text-sm col-xs-12 error p-0" id="passwordrequired"></span>
         
 	<span toggle="#txtPassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
       </div>
@@ -122,6 +125,47 @@
     		input.attr("type", "password");
   	}
 	});
+  
+  function IsValid(value) {
+            if (value == "" || value == null || value == undefined) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        
+
+     
+
+          // $('#submit').click(function()
+          $('#my_form').submit(function(){
+            $('.error').html('');
+
+     
+      //var title = $("#TxtTitle").val().trim();
+      var email = $("#email").val().trim();
+      var txtPassword = $("#txtPassword").val().trim();
+      
+      if (IsValid(email)){
+        $('#emailrequired').html('');
+        $('#emailrequired').html('Please Enter Email');
+        $('#email').focus();
+        return false;
+      }
+
+      else if (IsValid(txtPassword)){
+        $('#passwordrequired').html('');
+        $('#passwordrequired').html('Please Enter Password');
+        $('#txtPassword').focus();
+        return false;
+      }
+
+    
+   
+    });
+    
 
 </script>
 </body>

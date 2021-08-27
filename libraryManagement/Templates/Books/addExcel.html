@@ -7,6 +7,11 @@
 
 {% endblock %}
 {% block content %}
+<style>
+  .table>thead>tr>th {
+    border-bottom: 0.7px solid #b4b4b4 !important;
+}
+</style>
 <section class="content">
     <div class="row">
       <!-- left column -->
@@ -18,7 +23,7 @@
           </div>
           <!-- /.box-header -->
           
-          <form role="form" enctype="multipart/form-data"  id="my_form" class="form-horizontal" method="POST">
+          <form novalidate role="form" enctype="multipart/form-data"  id="my_form" class="form-horizontal" method="POST">
               {% csrf_token %}
               {% if messages %}
               <div class="row">
@@ -49,22 +54,52 @@
               
               
               <div class="col-md-5">
-                  <span class="details">Personal Details</span>
+                  <span class="details">Add Excel file</span>
                   <div class="row margintop">
                     <div class="col-md-12">
                       <input type="file"
                       title="Upload excel file"
                       name="excel_file"
                       class="form-control"
+                      id="excel"
                       required="required">
-                      <span class="text-sm col-xs-12 error p-0" id="fnamerequired"></span>
+                      <span class="text-sm col-xs-12 error p-0" id="excelrequired"></span>
                     </div>
+                    
                   </div>                 
               </div>  
               <div class="col-md-5">
                 <button id="submit" type="submit" class="btn btn-p submit ">Upload</button></center>
               </div>
-                 
+              <div class="row">
+                <div class="col-md-8" style="margin: 20px 20px;">
+                  <h4>
+                    Format for uploading excel
+                  </h3>
+                </div>
+              </div>
+                  
+                <div class="col-md-8" >
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">AuthorID</th>
+                        <th scope="col">Rating</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Thousand splendid suns</th>
+                        <td>A book about ....</td>
+                        <td>1</td>
+                        <td>5</td>
+                      </tr>                      
+                    </tbody>
+                  </table>
+                </div>
+             
                           
                 </div>
                
@@ -92,111 +127,15 @@
       });
 
         //upload photo
-        $(document).ready(function(){
+        
 
-          var readURL = function(input) {
-          if (input.files && input.files[0]) {
-              var reader = new FileReader();
-
-              reader.onload = function (e) {
-                  $('.profile-pic').attr('src', e.target.result);
-              }
-
-              reader.readAsDataURL(input.files[0]);
-                  }
-              }
-
-              $(".file-upload").on('change', function(){
-
-                  readURL(this);
-              });
-              
-              $(".upload-button").on('click', function() {
-                  console.log('upload button clicked');
-              $(".file-upload").click();
-              });
-
-        //  Date picker        
-          $('#datepicker').datepicker({
-            autoclose: true,
-            dateFormat: 'dd-mm-yyyy',
-            endDate: "today",
-          });
-          $('#datepicker2').datepicker({
-            autoclose: true,
-            dateFormat: 'dd-mm-yyyy',
-            endDate: "today",
-          });
-          $('#datepicker3').datepicker({
-            autoclose: true,
-            dateFormat: 'dd-mm-yyyy',
-            endDate: "today",
-          });
-        });
+        
       </script>
       {% load static %}
       <!-- jQuery 2.2.3 -->
       <script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
       <script>
-        // validations
-        
-        function myFunction() {
-        var x = document.getElementById("Password");
-        if (x.type === "password") {
-          x.type = "text";
-        } else {
-          x.type = "password";
-        }
-      }
-      
-        function fnameValidate(e) {
-              var keyCode = e.keyCode || e.which;
-          
-              var lblError = document.getElementById("fnamerequired");
-              lblError.innerHTML = "";
-          
-              var regex = /^[A-Za-z\s]+$/;
-          
-              var isValid = regex.test(String.fromCharCode(keyCode));
-              if (!isValid) {
-                  lblError.innerHTML = "Only Alphabets allowed*";
-              }
-          
-              return isValid;
-          }
-          function checkalpha1(){
-            var last_name=document.getElementById('lastname').value ;
-            var re = /^[a-zA-Z]+$/;
-            if(last_name.match(re)){
-                return true;
-            }else{
-                var last_name = last_name.substring(0, last_name.length-1);
-                document.getElementById('lastname').value = last_name;
-            }
-          }
-        
-
-      function checknum(){
-            var num=document.getElementById('MobileNumber').value ;
-            var re = /[0-9]+$/
-            if(num.match(re)){
-                return true;
-            }else{
-                var num = num.substring(0, num.length-1);
-                document.getElementById('MobileNumber').value = num;
-            }
-          }
-
-      function IsEmail($email) {
-      let emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-      return emailReg.test( $email );
-      }
-
-      function IsPhone(phone){
-      let phonereg = /^[0-9]{10}$/;
-      return phonereg.test(phone)
-      }
-
+    
         function IsValid(value) {
             if (value == "" || value == null || value == undefined) {
                 return true;
@@ -214,125 +153,16 @@
           $('#my_form').submit(function(){
             $('.error').html('');
 
-      var filter = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; //To check Email ID
-      //var title = $("#TxtTitle").val().trim();
-      var fullname = $("#fullname").val().trim();
-      var lastname = $("#lastname").val().trim();
-      var mobileno = $("#MobileNumber").val().trim();
-      var emailid = $("#Email").val().trim();
-      var gender = $('input[name="gender"]:checked').val();
-      var dateofbirth = $("#datepicker").val().trim();
-      var role = $("#role").val();
-      var password = $("#Password").val();
-      var address = $("#location").val();
-      //birthdate
-      // var dateofbirthobject = new Date($('#datepicker').val());
-      var k = $('#datepicker').val().split('/')
-      dobyear = parseInt(k[2])
-      // var dobyear = dateofbirthobject.getFullYear();
-      // console.log('dobyear'+dobyear)
-      var currdate = new Date();
-      curYear = currdate.getFullYear();
-      console.log(curYear-dobyear);
-
-        
-
-
-      if (IsValid(fullname)){
-        $('#fnamerequired').html('');
-        $('#fnamerequired').html('Please Enter Your First Name.');
-        $('#fullname').focus();
-        return false;
-      }
-
-      else if (IsValid(lastname)){
-        $('#lnamerequired').html('');
-        $('#lnamerequired').html('Please Enter Your Last Name.');
-        $('#lastname ').focus();
-        return false;
-      }
-
-      else if (IsValid(gender)) {
-        $('#genderrequired').html('');
-        $('#genderrequired').html('Please Select Your Gender.');
-       
-    		return false;
-    	}
-
-      else if (IsValid(mobileno)) {
-      	$('#phonerequired').html('');
-        $('#phonerequired').html('Please Enter Your Mobile.');
-        $('#MobileNumber ').focus();
-      	return false;
-      }
-      else if (mobileno.length != 10 ) {
-        console.log('invalid number')
-        $('#phonerequired').html('');
-        $('#phonerequired').html('Please Enter Valid Mobile.');
-        $('#MobileNumber ').focus();
-        return false;
-      }
-    	else if (IsValid(emailid)) {
-    		$('#emailrequired').html('');
-        $('#emailrequired').html('Please Enter Your Email.');
-        $('#Email').focus();
-    		return false;
-    	}
-    	else if (!filter.test(emailid)) {
-        console.log('invalid email')
-    		$('#emailrequired').html('');
-        $('#emailrequired').html('Please Enter Valid Email.');
-        $('#Email').focus();
-    		return false;
-    	}
-
-      else if (IsValid(location)) {
-    		$('#locationrequired').html('');
-        $('#locationrequired').html('Please Enter Your location.');
-        $('#location').focus();
-    		return false;
-    	}
-      else if (IsValid(password)) {
-    		$('#passwordrequired').html('');
-        $('#passwordrequired').html('Please Enter Password.');
-        $('#Password').focus();
-    		return false;
-    	}
       
-      else if (IsValid(dateofbirth)) {
-        console.log(dateofbirth)
-      	$('#birthdaterequired').html('');
-        $('#birthdaterequired').html('Please Select Your Birthdate.');
-        $('#datepicker ').focus();
-      	return false;
-      }
-      else if (curYear-dobyear <18) {
-        $('#birthdaterequired').html('');
-        $('#birthdaterequired').html('Age should be 18 or above');
-        $('#datepicker ').focus();
-        // you are above 18   
-        return false;            
-      }
-      else if (IsValid(dateofjoining)) {
-      	$('#joiningrequired').html('');
-        $('#joiningrequired').html('Please Select Your Joining Date.');
-        $('#datepicker2 ').focus();
-      	return false;
-      }
-      // if (jjdate<=bdate){
-              //     console.log('date of joining cannot be before  birthdate');
-              //     $('#jdateerror').html('date of joining cannot be before birthdate');
-              // }else{
-              //         $('#jdateerror').html("");
-              //     }
-  
-    
-    	else if (IsValid(role)) {
-    		$('#rolerequired').html('');
-        $('#rolerequired').html('Please Select Role.');
-        $('#role ').focus();
-    		return false;
-    	}
+      var excel = $("#excel").val()
+     
+      if (IsValid(excel)){
+        $('#excelrequired').html('');
+        $('#excelrequired').html('Please Select file');
+        return false;
+            }
+
+      
     });
 
  

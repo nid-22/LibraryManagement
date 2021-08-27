@@ -98,8 +98,8 @@ table.dataTable thead .sorting:after {
                 <td>{{u.Gender}}</td>
                 <td>{{u.email}}</td>
                 <td>{{u.Phone}}</td>
-                <td> <a href="{% url 'updateUsers' u.id %}"> <i class="fa fa-edit"></i></a>
-                    <a href="{% url 'deleteUsers' u.id %}"> <i class="fa fa-trash"></i></a>
+                <td> <button> <a href="{% url 'updateUsers' u.id %}"> <i class="fa fa-edit"></i></a></button>
+                    <button ><a onclick="return confirm('Are you sure you want to delete this item?');" href="{% url 'deleteUsers' u.id %}"> <i class="fa fa-trash"></i></a></button> 
                 </td>
               </tr>
               {% endfor %}

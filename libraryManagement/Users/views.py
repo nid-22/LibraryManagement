@@ -1,3 +1,4 @@
+from books.models import Author, Books
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
@@ -37,7 +38,12 @@ def login(request):
 def home(request):
     if not request.user.is_authenticated:
         return redirect('login')
-    return render(request,'home.html')
+    books=Books.objects.all().count()
+    authors=Author.objects.all().count()
+    users=Users.objects.all().count()
+    subscriptions=10
+    return render(request,'home.html',{'books':books,'authors':authors,
+                                       'users':users,'subscriptions':subscriptions })
 
 @login_required
 def register(request):
@@ -47,10 +53,15 @@ def register(request):
             user = form.save()
             pw = user.password
             user.set_password(pw)
+            user.is_active = True
+            user.is_staff = True
             user.save()
+            messages.success(request,'User successfully registered')
             return redirect('register')
         else:
-            print(form.errors)
+            print(form.errors)            
+            messages.error(request, form.errors)
+            return redirect('register')
     form = registerForm()       
     return render(request,'Users/addUser.html',{'form':form})
 
@@ -70,8 +81,10 @@ def deleteUsers(request,id):
     try:
         u=Users.objects.get(id=id)
         u.delete()  #or user.is_active = False  or user.is_deleted = 0 if data is not to be deleted
+        messages.success(request,'Account successfully deleted')
     except ObjectDoesNotExist:
         print('')
+        messages.error(request,'User not found')
     return redirect('viewUsers')
 
 @login_required
@@ -81,8 +94,10 @@ def updateUsers(request,id):
         form = userUpdateForm(request.POST,request.FILES, instance=e)
         if form.is_valid():
             form.save()
+            messages.success(request,'Account successfully updated')
             return redirect('viewUsers')
         else:
             print(form.errors)
+            messages.error(request,form.errors)
     form = userUpdateForm(instance=e)
     return render(request, 'Users/updateUser.html',{'form':form})

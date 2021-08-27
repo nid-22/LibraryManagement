@@ -74,6 +74,7 @@ table.dataTable thead .sorting:after {
               <thead>
               <tr>
                 <!-- <th>Photo</th> -->
+                <th>Cover Page</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Author</th>
@@ -93,12 +94,13 @@ table.dataTable thead .sorting:after {
                 </td>   -->
                 
                
+                <td><img src="/media/{{u.CoverPage}}" width="100px" height="150px" alt="">  </td>
                 <td>{{u.Title}} </td>
                 <td>{{u.Description}}</td>
                 <td>{{u.Author}}</td>
                 <td>{{u.Rating}}</td>
-                <td> <a href="{% url 'updateBook' u.id %}"> <i class="fa fa-edit"></i></a>
-                    <a href="{% url 'deleteBook' u.id %}"> <i class="fa fa-trash"></i></a>
+                <td> <button> <a href="{% url 'updateBook' u.id %}"> <i class="fa fa-edit"></i></a></button>
+                   <button> <a onclick="return confirm('Are you sure you want to delete this item?');" href="{% url 'deleteBook' u.id %}"> <i class="fa fa-trash"></i></a></button>
                 </td>
               </tr>
               {% endfor %}

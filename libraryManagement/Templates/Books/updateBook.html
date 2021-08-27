@@ -66,8 +66,8 @@
               
               
               {% csrf_token %}
-                <div class="col-md-6">
-                  <span class="details">Add Book</span>
+                <div class="col-md-12">
+                  <span class="details">Update Book</span>
                   <div class="row margintop">
                     <div class="col-md-12">
                       {% render_field book.Title class="form-control" placeholder="Title" name='Title' id='Title'   %}
@@ -95,26 +95,11 @@
                     </div>                   
                   </div> 
                   <div class="row margintop text-center">
-                    <button id="submit" type="submit" class="btn btn-p submit ">Add Book</button></center>
+                    <button id="submit" type="submit" class="btn btn-p submit ">Update Book</button></center>
                   </div>
                 </form>
                           
-                </div>
-                <form novalidate action="" id="my_form2" class="form-horizontal" method="POST">
-                    {% csrf_token %}
-                    <div class="col-md-6">
-                        <span class="details">Add Author</span>
-                      <div class="row margintop">
-                        <div class="col-md-12">
-                          {% render_field author.Name class="form-control" placeholder="Name" name='Name' id='authorname' onkeypress="return fnameValidate(event);"  %}
-                          <span class="text-sm col-xs-12 error p-0" id="authornamerequired"></span>
-                        </div>
-                      </div>  
-                      <div class="row margintop text-center">
-                        <button id="submit" type="submit" style="margin-top: 168px;" class="btn btn-p submit ">Add Author</button></center>
-                      </div>              
-                    </div>
-                  </form>
+                </div>     
                 </div>
                 
                 
@@ -244,20 +229,6 @@
    
     });
 
-    $('#my_form2').submit(function(){
-            $('.error').html('');
-
-     
-      var au = $("#authorname").val().trim();
-      
-      if (IsValid(au)){
-        $('#authornamerequired').html('');
-        $('#authornamerequired').html('Please Enter Author Name');
-        $('#authorname').focus();
-        return false;
-      } 
-   
-    });
  
 
 
