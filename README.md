@@ -1,6 +1,12 @@
 # Library Management system for "Blossoms" library
 
 ### This project  was created for an interview.
+### It is hosted on EC2 instance AWS
+### Link to server:
+### http://13.232.166.52:8000/login
+
+### login email - admin@blossom.com
+### password- admin123
 
 ## Technologies
 Project is created with:
